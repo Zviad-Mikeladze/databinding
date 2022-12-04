@@ -4,12 +4,15 @@ import {
   AfterViewChecked,
   AfterViewInit,
   Component,
+  ContentChild,
   DoCheck,
+  ElementRef,
   Input,
   OnChanges,
   OnDestroy,
   OnInit,
   SimpleChanges,
+  ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
 
@@ -32,6 +35,10 @@ export class ServerElementComponent
 {
   @Input() element: { type: string; name: string; content: string };
   @Input() name: string;
+
+  @ViewChild('heading', { static: true }) header: ElementRef;
+  @ContentChild('contentParagraph', { static: true }) paragraph: ElementRef;
+
   constructor() {
     console.log('construc');
   }
@@ -47,17 +54,19 @@ export class ServerElementComponent
   }
   ngAfterContentInit() {
     console.log('ngAfterContentInit');
+    console.log('text paragraph ' + this.paragraph.nativeElement.textContent);
   }
   ngAfterContentChecked() {
     console.log('ngAfterContentChecked');
   }
   ngAfterViewInit() {
     console.log('ngAfterViewInit');
+    console.log('text ' + this.header.nativeElement.textContent);
   }
   ngAfterViewChecked() {
     console.log('ngAfterViewChecked');
   }
-  ngOnDestroy(){
+  ngOnDestroy() {
     console.log('ngOnDestroy');
   }
 }
